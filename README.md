@@ -1,5 +1,9 @@
-# DeepSee_TimeCharts
-A DeepSee portlet to chart dates and times using [Amcharts](https://www.amcharts.com/)
+# DeepSee_CubeManagerMonitor
+DeepSee dashboard base on portlets and [Amcharts](https://www.amcharts.com/) to analyze the data in the Cube Manager
+
+
+TODO
+
 
 ### Description
 This project shows a portlet using 3rd party tools for charting date and time.
