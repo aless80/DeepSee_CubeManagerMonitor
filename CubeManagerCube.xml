@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-01 14:18:00">
+<Class name="Ale.CubeManagerCube">
+<Description>
+</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%DeepSee.CubeDefinition</Super>
+<TimeChanged>64861,49721.168608</TimeChanged>
+<TimeCreated>64861,34075.318698</TimeCreated>
+<DependsOn>%DeepSee.CubeManager.CubeEvent</DependsOn>
+
+<XData name="Cube">
+<Description>
+Cube definition from Architect.</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee</XMLNamespace>
+<Data><![CDATA[
+<cube xmlns="http://www.intersystems.com/deepsee" name="CubeManagerCube" displayName="CubeManagerCube" disabled="false" abstract="false" sourceClass="%DeepSee.CubeManager.CubeEvent" countMeasureName="%COUNT" bucketSize="8" bitmapChunkInMemory="false" precompute="0" disableListingGroups="false">
+  <dimension name="CubeEvent" disabled="false" hasAll="false" allCaption="All CubeEvent" allDisplayName="CubeEvent" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="CubeEvent" disabled="false" sourceProperty="CubeEvent" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="Cube" disabled="false" hasAll="false" allCaption="All CubeKey" allDisplayName="CubeKey" type="data" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="Group" disabled="false" sourceProperty="MgmtGroup" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+      <level name="Cube Key" disabled="false" sourceProperty="CubeKey" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="StartTime" disabled="false" hasAll="false" allCaption="All StartTime" allDisplayName="StartTime" sourceProperty="StartTime" type="time" calendar="gregorian" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="StartTime MonthYear" disabled="false" timeFunction="MonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+      <level name="StartTime DMY" disabled="false" timeFunction="DayMonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+    <hierarchy name="H2" disabled="false" hidden="false">
+      <level name="StartTime Hour" disabled="false" timeFunction="HourNumber" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+      <level name="StartTime Minute" disabled="false" timeFunction="MinuteNumber" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="StartDateTime" disabled="false" hasAll="false" allCaption="All StartTime1" allDisplayName="StartTime1" sourceProperty="StartTime" type="data" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="StartDateTime" disabled="false" sourceProperty="StartTime" list="false" useDisplayValue="true" sort="asc" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="EventStatus" disabled="false" hasAll="false" allCaption="All EventStatus" allDisplayName="EventStatus" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="EventStatus" disabled="false" sourceExpression="$S(%source.EventStatus:&quot;Success&quot;,1:&quot;Failure&quot;)" list="false" nullReplacement="No Status" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="UpdateFrequency" displayName="Update Frequency" disabled="false" hasAll="false" allCaption="All BuildFrequency" allDisplayName="BuildFrequency" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="Build" disabled="false" hidden="false">
+      <level name="BuildFrequency" displayName="Build Frequency" disabled="false" sourceExpression="%source.BuildFrequency _ &quot; &quot; _ %source.BuildTimeUnit" list="false" nullReplacement="No Build" useDisplayValue="false" useAsFilter="true" hidden="false">
+        <property name="BuildSortValue" disabled="false" sourceExpression="$Case(%source.BuildTimeUnit,&quot;Month&quot;:&quot;1.&quot;,&quot;Week&quot;:&quot;2.&quot;,&quot;Day&quot;:&quot;3.&quot;,:&quot;&quot;) _ %source.BuildFrequency" hidden="false" sort="asc numeric" isName="false" isDescription="false" isReference="false" useDisplayValue="false">
+        </property>
+      </level>
+    </hierarchy>
+    <hierarchy name="Synchronize" disabled="false" hidden="false">
+      <level name="SynchFrequency" displayName="Synch Frequency" disabled="false" sourceExpression="%source.SynchFrequency _ &quot; &quot; _ %source.SynchTimeUnit" list="false" nullReplacement="No Synch" useDisplayValue="false" useAsFilter="true" hidden="false">
+        <property name="SynchSortValue" disabled="false" sourceExpression="$Case(%source.SynchTimeUnit,&quot;Day&quot;:&quot;1.&quot;,&quot;Hour&quot;:&quot;2.&quot;,&quot;Minute&quot;:&quot;3.&quot;,:&quot;&quot;) _ %source.SynchFrequency" hidden="false" sort="asc numeric" isName="false" isDescription="false" isReference="false" useDisplayValue="false">
+        </property>
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="FactsUpdated" disabled="false" hasAll="false" allCaption="All FactsUpdated" allDisplayName="FactsUpdated" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="Synchronize" disabled="false" hidden="false">
+      <level name="FactsUpdatedSync" disabled="false" sourceExpression="$S(%source.CubeEvent=&quot;synch&quot;:%source.FactsUpdated,1:-1)" list="false" rangeExpression="(-1,-1):None;[,1):0;[1,10]:1-10;(10,30]:11-30;(30,100):31-99;[100,]:100+;" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+    <hierarchy name="Build" disabled="false" hidden="false">
+      <level name="FactsUpdatedBuild" disabled="false" sourceExpression="$S( ((%source.CubeEvent=&quot;build&quot;)||(%source.CubeEvent=&quot;repair&quot;)):%source.FactsUpdated,1:-1)" list="false" rangeExpression="(-1,-1):None;[0,1):0;[1,100]:1-100;(100,10000]:100-10^4;(10000,1000000]:10^4-10^6;(1000000,]:&gt;10^6;" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="NCores" disabled="false" hasAll="false" allCaption="All NCores" allDisplayName="NCores" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="NCores" disabled="false" sourceProperty="NCores" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="UserName" disabled="false" hasAll="false" allCaption="All UserName" allDisplayName="UserName" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="UserName" disabled="false" sourceProperty="UserName" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <measure name="Cube Size" displayName="Cube Size" disabled="false" sourceProperty="CubeSize" aggregate="AVG" type="number" hidden="false" searchable="false">
+  </measure>
+  <measure name="Facts Updated" displayName="Facts Updated" disabled="false" sourceProperty="FactsUpdated" aggregate="AVG" type="number" hidden="false" searchable="false">
+  </measure>
+  <measure name="Error Count" displayName="Error Count" disabled="false" sourceProperty="ErrorCount" aggregate="SUM" type="number" hidden="false" searchable="false">
+  </measure>
+  <measure name="Missing References" disabled="false" sourceProperty="MissingRefs" aggregate="SUM" type="number" hidden="false" searchable="false">
+  </measure>
+  <measure name="Total Time" displayName="Total Time" disabled="false" sourceExpression="%source.TotalTime" aggregate="AVG" type="number" scale="5" hidden="false" searchable="false" iKnowSource="string">
+  </measure>
+  <measure name="iKnow Time" displayName="iKnow Time" disabled="false" sourceProperty="iKnowTime" aggregate="AVG" type="number" scale="2" hidden="false" searchable="false" iKnowSource="string">
+  </measure>
+  <measure name="Expression Time" displayName="Expression Time" disabled="false" sourceProperty="ExprTime" aggregate="AVG" type="number" scale="2" hidden="false" searchable="false">
+  </measure>
+  <measure name="AVGOtherTime" displayName="Average Other Processing Time" disabled="true" sourceExpression="%source.TotalTime*%source.NCores - (%source.iKnowTime + %source.ExprTime)" aggregate="AVG" type="number" hidden="false" searchable="false">
+  </measure>
+  <measure name="Cube Key" disabled="false" sourceProperty="CubeKey" aggregate="COUNT" type="string" hidden="false" searchable="false">
+  </measure>
+  <measure name="AgentCount" disabled="false" sourceProperty="AgentCount" aggregate="SUM" type="number" hidden="false" searchable="false">
+  </measure>
+  <listing name="Cube Manager details" disabled="false" listingType="table" fieldList="%ID,CubeKey,TotalTime,FactsUpdated,EventStatus,CubeEvent,StartTime">
+  </listing>
+</cube>
+]]></Data>
+</XData>
+
+<Parameter name="DOMAIN"/>
+</Class>
+</Export>
