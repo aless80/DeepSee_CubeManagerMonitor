@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-02 15:53:05">
-<Class name="CubeManager.PortletAmcharts">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-02 16:17:41">
+<Class name="CubeManager.CubeManagerPortlet">
 <Super>%DeepSee.Component.Portlet.abstractPortlet</Super>
-<TimeChanged>64862,55776.159217</TimeChanged>
-<TimeCreated>64861,35917.743375</TimeCreated>
+<TimeChanged>64862,58518.798486</TimeChanged>
+<TimeCreated>64862,58518.798486</TimeCreated>
 
 <Parameter name="INCLUDEFILES">
 <Description>
@@ -79,7 +79,7 @@ This is displayed in the Widget Builder dialog.
 This should be overridden in subclasses.</Description>
 <ClassMethod>1</ClassMethod>
 <ReturnType>%String</ReturnType>
-<Implementation><![CDATA[	Quit "PortletAmcharts"
+<Implementation><![CDATA[	Quit "CubeManager.CubeManagerPortlet"
 ]]></Implementation>
 </Method>
 
