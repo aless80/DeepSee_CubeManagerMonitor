@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-01 14:18:00">
-<Class name="Ale.CubeManagerCube">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-02 15:51:41">
+<Class name="CubeManager.CubeManagerCube">
 <Description>
 </Description>
 <ProcedureBlock>1</ProcedureBlock>
 <Super>%DeepSee.CubeDefinition</Super>
-<TimeChanged>64861,49721.168608</TimeChanged>
+<TimeChanged>64862,56816.710293</TimeChanged>
 <TimeCreated>64861,34075.318698</TimeCreated>
 <DependsOn>%DeepSee.CubeManager.CubeEvent</DependsOn>
 
@@ -14,18 +14,28 @@
 Cube definition from Architect.</Description>
 <XMLNamespace>http://www.intersystems.com/deepsee</XMLNamespace>
 <Data><![CDATA[
-<cube xmlns="http://www.intersystems.com/deepsee" name="CubeManagerCube" displayName="CubeManagerCube" disabled="false" abstract="false" sourceClass="%DeepSee.CubeManager.CubeEvent" countMeasureName="%COUNT" bucketSize="8" bitmapChunkInMemory="false" precompute="0" disableListingGroups="false">
+<cube xmlns="http://www.intersystems.com/deepsee" name="CubeManagerCube" displayName="CubeManagerCube" disabled="false" abstract="false" sourceClass="%DeepSee.CubeManager.CubeEvent" buildRestriction="StartTime &gt; $H-365" countMeasureName="%COUNT" bucketSize="8" bitmapChunkInMemory="false" precompute="0" disableListingGroups="false">
   <dimension name="CubeEvent" disabled="false" hasAll="false" allCaption="All CubeEvent" allDisplayName="CubeEvent" type="data" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
       <level name="CubeEvent" disabled="false" sourceProperty="CubeEvent" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
       </level>
     </hierarchy>
   </dimension>
+  <dimension name="CubeGroup" disabled="false" hasAll="false" allCaption="All MgmtGroup" allDisplayName="MgmtGroup" type="data" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="CubeGroup" disabled="false" sourceProperty="MgmtGroup" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
   <dimension name="Cube" disabled="false" hasAll="false" allCaption="All CubeKey" allDisplayName="CubeKey" type="data" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
-      <level name="Group" disabled="false" sourceProperty="MgmtGroup" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      <level name="CubeKey" disabled="false" sourceProperty="CubeKey" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
       </level>
-      <level name="Cube Key" disabled="false" sourceProperty="CubeKey" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+    </hierarchy>
+  </dimension>
+    <dimension name="EventStatus" disabled="false" hasAll="false" allCaption="All EventStatus" allDisplayName="EventStatus" type="data" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="EventStatus" disabled="false" sourceExpression="$S(%source.EventStatus:&quot;Success&quot;,1:&quot;Failure&quot;)" list="false" nullReplacement="No Status" useDisplayValue="true" useAsFilter="true" hidden="false">
       </level>
     </hierarchy>
   </dimension>
@@ -49,9 +59,23 @@ Cube definition from Architect.</Description>
       </level>
     </hierarchy>
   </dimension>
-  <dimension name="EventStatus" disabled="false" hasAll="false" allCaption="All EventStatus" allDisplayName="EventStatus" type="data" hidden="false" showHierarchies="default">
+  <dimension name="FinishTime" disabled="false" hasAll="false" allCaption="All FinishTime" allDisplayName="FinishTime" sourceProperty="FinishTime" type="time" calendar="gregorian" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
-      <level name="EventStatus" disabled="false" sourceExpression="$S(%source.EventStatus:&quot;Success&quot;,1:&quot;Failure&quot;)" list="false" nullReplacement="No Status" useDisplayValue="true" useAsFilter="true" hidden="false">
+      <level name="FinishTime MonthYear" disabled="false" timeFunction="MonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+      <level name="FinishTime DMY" disabled="false" timeFunction="DayMonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+    <hierarchy name="H2" disabled="false" hidden="false">
+      <level name="FinishTime Hour" disabled="false" timeFunction="HourNumber" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+      <level name="FinishTime Minute" disabled="false" timeFunction="MinuteNumber" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      </level>
+    </hierarchy>
+  </dimension>
+  <dimension name="FinishDateTime" disabled="false" hasAll="false" allCaption="All FinishTime1" allDisplayName="FinishTime1" sourceProperty="FinishTime" type="data" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
+    <hierarchy name="H1" disabled="false" hidden="false">
+      <level name="FinishDateTime" disabled="false" sourceProperty="FinishTime" list="false" useDisplayValue="true" sort="asc" useAsFilter="true" hidden="false">
       </level>
     </hierarchy>
   </dimension>
@@ -117,6 +141,7 @@ Cube definition from Architect.</Description>
 ]]></Data>
 </XData>
 
-<Parameter name="DOMAIN"/>
+<Parameter name="DOMAIN">
+</Parameter>
 </Class>
 </Export>

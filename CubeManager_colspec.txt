@@ -1,0 +1,8 @@
+%%NAME,CubeManager_colspec
+%%MODDATE,2018-08-02 15:35:34
+Cube Size,[Measures].[Cube Size]
+Error Count,[Measures].[Error Count]
+Expression Time,[Measures].[Expression Time]
+Facts Updated,[Measures].[Facts Updated]
+Missing References,[Measures].[Missing References]
+Total Time,[Measures].[Total Time]
