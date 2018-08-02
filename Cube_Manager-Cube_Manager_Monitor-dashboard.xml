@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-02 15:55:35">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-02 17:01:40">
 <Document name="Cube Manager-Cube Manager Monitor.dashboard.DFI">
 <dashboard xmlns="http://www.intersystems.com/deepsee/library" name="Cube Manager Monitor" folderName="Cube Manager" title="" description="" keywords="" owner="" shared="true" public="true" locked="false" resource="" timeCreated="2018-08-02T19:55:24.542Z" createdBy="UnknownUser" category="" bookCover="" scheme="" worklistCount="0" snapTo="true" snapGrid="true" gridRows="10" gridCols="10" canResize="true" canModify="true" showTitleBar="true" titleBarOpacity="" titleBarColor="" selectedTitleBarOpacity="" selectedTitleBarColor="" titleBarTextColor="" selectedTitleBarTextColor="" titleBarFont="" companyName="" companyLogo="" companyStyle="" backgroundColor="white" backgroundImage="none" backgroundRepeat="no-repeat" backgroundSize="100% 100%" backgroundOpacity="1" widgetBorders="1px solid #F0F0F0" widgetBordersSwitch="edit" widgetBordersColor="#F0F0F0" widgetBordersStyle="solid" widgetBordersWidth="1" widgetBordersToggle="true">
-  <widget name="TimeChart" type="portlet" subtype="Ale.PortletAmcharts" subtypeClass="" title="" dataSource="Cube Manager/Times by StartTime.pivot" dataLink="" drillDownDataSource="" width="200" height="200" sidebarContent="" showSidebar="false" sidebarWidth="" maximized="true" homeRowL="0" homeColL="0" colSpanL="5" rowSpanL="8" showToolbar="true" showToolbarBottomBorder="true" showToolbarOnlyWhenMaximized="false" colorToolbar="#F0F0F0" opacityToolbar="1" backgroundColor="#F0F0F0" opacity="1" theme="" dataColorList="">
+  <widget name="TimeChart" type="portlet" subtype="CubeManager.CubeManagerPortlet" subtypeClass="" title="" dataSource="Cube Manager/Times by StartTime.pivot" dataLink="" drillDownDataSource="" width="200" height="200" sidebarContent="" showSidebar="false" sidebarWidth="" maximized="true" homeRowL="0" homeColL="0" colSpanL="5" rowSpanL="8" showToolbar="true" showToolbarBottomBorder="true" showToolbarOnlyWhenMaximized="false" colorToolbar="#F0F0F0" opacityToolbar="1" backgroundColor="#F0F0F0" opacity="1" theme="" dataColorList="">
     <control name="" action="applyFilter" target="" targetProperty="[CubeEvent].[H1].[CubeEvent]" location="widget" type="auto" controlClass="" label="CubeEvent" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
       <valueRequired>false</valueRequired>
     </control>
+    <control name="" action="applyFilter" target="" targetProperty="[CubeGroup].[H1].[CubeGroup]" location="widget" type="auto" controlClass="" label="CubeGroup" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
+      <valueRequired>false</valueRequired>
+    </control>
     <control name="" action="applyFilter" target="" targetProperty="[Cube].[H1].[CubeKey]" location="widget" type="auto" controlClass="" label="CubeKey" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
+      <valueRequired>false</valueRequired>
+    </control>
+    <control name="" action="applyFilter" target="" targetProperty="[EventStatus].[H1].[EventStatus]" location="widget" type="auto" controlClass="" label="EventStatus" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
+      <valueRequired>false</valueRequired>
+    </control>
+    <control name="" action="applyFilter" target="" targetProperty="[StartTime].[H1].[StartTime MonthYear]" location="widget" type="auto" controlClass="" label="StartTime MonthYear" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
       <valueRequired>false</valueRequired>
     </control>
     <control name="" action="applyFilter" target="" targetProperty="[StartTime].[H1].[StartTime DMY]" location="widget" type="auto" controlClass="" label="StartTime DMY" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
