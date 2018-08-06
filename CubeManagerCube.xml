@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-02 17:01:55">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-06 12:33:57">
 <Class name="CubeManager.CubeManagerCube">
 <Description>
 </Description>
 <ProcedureBlock>1</ProcedureBlock>
 <Super>%DeepSee.CubeDefinition</Super>
-<TimeChanged>64862,56816.710293</TimeChanged>
+<TimeChanged>64866,45049.676786</TimeChanged>
 <TimeCreated>64861,34075.318698</TimeCreated>
 <DependsOn>%DeepSee.CubeManager.CubeEvent</DependsOn>
 
@@ -14,7 +14,7 @@
 Cube definition from Architect.</Description>
 <XMLNamespace>http://www.intersystems.com/deepsee</XMLNamespace>
 <Data><![CDATA[
-<cube xmlns="http://www.intersystems.com/deepsee" name="CubeManagerCube" displayName="CubeManagerCube" disabled="false" abstract="false" sourceClass="%DeepSee.CubeManager.CubeEvent" buildRestriction="StartTime &gt; $H-365" countMeasureName="%COUNT" bucketSize="8" bitmapChunkInMemory="false" precompute="0" disableListingGroups="false">
+<cube xmlns="http://www.intersystems.com/deepsee" name="CubeManagerCube" displayName="CubeManagerCube" disabled="false" abstract="false" sourceClass="%DeepSee.CubeManager.CubeEvent" buildRestriction="StartTime &gt; tochar($H-30,&apos;YYYY-MM-DD HH24:MI:SS&apos;) AND CubeEvent != &apos;Update&apos; AND CubeEvent != &apos;Register&apos;" countMeasureName="%COUNT" bucketSize="8" bitmapChunkInMemory="false" precompute="0" disableListingGroups="false">
   <dimension name="CubeEvent" disabled="false" hasAll="false" allCaption="All CubeEvent" allDisplayName="CubeEvent" type="data" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
       <level name="CubeEvent" disabled="false" sourceProperty="CubeEvent" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
@@ -23,23 +23,23 @@ Cube definition from Architect.</Description>
   </dimension>
   <dimension name="CubeGroup" disabled="false" hasAll="false" allCaption="All MgmtGroup" allDisplayName="MgmtGroup" type="data" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
-      <level name="CubeGroup" disabled="false" sourceProperty="MgmtGroup" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      <level name="CubeGroup" disabled="false" sourceProperty="MgmtGroup" list="false" useDisplayValue="true" dependsOn="[CubeEvent].[H1].[CubeEvent]" useAsFilter="true" hidden="false">
       </level>
     </hierarchy>
   </dimension>
   <dimension name="Cube" disabled="false" hasAll="false" allCaption="All CubeKey" allDisplayName="CubeKey" type="data" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
-      <level name="CubeKey" disabled="false" sourceProperty="CubeKey" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
+      <level name="CubeKey" disabled="false" sourceProperty="CubeKey" list="false" useDisplayValue="true" dependsOn="[CubeGroup].[H1].[CubeGroup],[CubeEvent].[H1].[CubeEvent]" useAsFilter="true" hidden="false">
       </level>
     </hierarchy>
   </dimension>
-    <dimension name="EventStatus" disabled="false" hasAll="false" allCaption="All EventStatus" allDisplayName="EventStatus" type="data" hidden="false" showHierarchies="default">
+  <dimension name="EventStatus" disabled="false" hasAll="false" allCaption="All EventStatus" allDisplayName="EventStatus" type="data" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
       <level name="EventStatus" disabled="false" sourceExpression="$S(%source.EventStatus:&quot;Success&quot;,1:&quot;Failure&quot;)" list="false" nullReplacement="No Status" useDisplayValue="true" useAsFilter="true" hidden="false">
       </level>
     </hierarchy>
   </dimension>
-  <dimension name="StartTime" disabled="false" hasAll="false" allCaption="All StartTime" allDisplayName="StartTime" sourceProperty="StartTime" type="time" calendar="gregorian" hidden="false" showHierarchies="default">
+  <dimension name="StartTime" disabled="false" hasAll="false" allCaption="All StartTime" allDisplayName="StartTime" sourceProperty="StartTime" sourceExpression="$ZDTH(%source.StartTime,3)" type="time" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
       <level name="StartTime MonthYear" disabled="false" timeFunction="MonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
       </level>
@@ -59,7 +59,7 @@ Cube definition from Architect.</Description>
       </level>
     </hierarchy>
   </dimension>
-  <dimension name="FinishTime" disabled="false" hasAll="false" allCaption="All FinishTime" allDisplayName="FinishTime" sourceProperty="FinishTime" type="time" calendar="gregorian" hidden="false" showHierarchies="default">
+  <dimension name="FinishTime" disabled="false" hasAll="false" allCaption="All FinishTime" allDisplayName="FinishTime" sourceExpression="$ZDTH(%source.FinishTime,3)" type="time" calendar="gregorian" iKnowType="entity" hidden="false" showHierarchies="default">
     <hierarchy name="H1" disabled="false" hidden="false">
       <level name="FinishTime MonthYear" disabled="false" timeFunction="MonthYear" list="false" useDisplayValue="true" useAsFilter="true" hidden="false">
       </level>
@@ -135,13 +135,14 @@ Cube definition from Architect.</Description>
   </measure>
   <measure name="AgentCount" disabled="false" sourceProperty="AgentCount" aggregate="SUM" type="number" hidden="false" searchable="false">
   </measure>
-  <listing name="Cube Manager details" disabled="false" listingType="table" fieldList="%ID,CubeKey,TotalTime,FactsUpdated,EventStatus,CubeEvent,StartTime">
+  <measure name="Last StartTime" disabled="false" sourceExpression="$ZDH(%source.StartTime,3)" aggregate="MAX" type="date" hidden="false" searchable="true" listingFilterOperator="MAX">
+  </measure>
+  <listing name="Cube Manager details" disabled="false" listingType="table" fieldList="%ID,CubeKey,CubeEvent,EventStatus,StartTime,TotalTime,FactsUpdated">
   </listing>
 </cube>
 ]]></Data>
 </XData>
 
-<Parameter name="DOMAIN">
-</Parameter>
+<Parameter name="DOMAIN"/>
 </Class>
 </Export>

@@ -10,7 +10,7 @@ See the documentation on portlets: [Creating Portlets for Use in Dashboards](htt
 CubeManagerCube cube, a CubeManagerPortlet portlet showing a chart based on Amcharts. The x-axis of the chart is based on date-time (e.g. "2018-08-02 14:18:00").
 
 TODO: new figure
-![Alt Text](https://github.com/aless80/DeepSee_TimeCharts/blob/master/img/TimeAmchart.png)
+![Alt Text](https://github.com/aless80/DeepSee_CubeManagerMonitor/blob/master/img/dashboard.png)
 
 
 ### Instructions
