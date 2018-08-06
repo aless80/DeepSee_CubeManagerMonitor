@@ -9,7 +9,6 @@ See the documentation on portlets: [Creating Portlets for Use in Dashboards](htt
 ### Content
 CubeManagerCube cube, a CubeManagerPortlet portlet showing a chart based on Amcharts. The x-axis of the chart is based on date-time (e.g. "2018-08-02 14:18:00").
 
-TODO: new figure
 ![Alt Text](https://github.com/aless80/DeepSee_CubeManagerMonitor/blob/master/img/dashboard.png)
 
 
@@ -43,7 +42,7 @@ Do ##class(%DeepSee.UserLibrary.Utils).%Import(path_"Cube_Manager-Cube_Manager_M
 
 
 ### Limitations
-The default filter control is not used when you first load the dashboard. This has been ProdLogged.  
+The default filter control in the portlet widget is not used when you first load the dashboard. This has been ProdLogged.  
 The current implementation of onApplyFilters calls renderContents. This makes the filters work but renderContents runs two times at startup. This has been ProdLogged.  
 The data should be sorted by date and be in the format "yyyy-mm-dd hh:mm:ss" e.g. "2018-07-27 14:25:41".  
 The pivot should not have crossjoins  
