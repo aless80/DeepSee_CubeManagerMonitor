@@ -1,5 +1,6 @@
 %%NAME,CubeManager_colspec
 %%MODDATE,2018-08-02 15:35:34
+Total Time & Expression Time,{[Measures].[Total Time],[Measures].[Expression Time]}
 Cube Size,[Measures].[Cube Size]
 Error Count,[Measures].[Error Count]
 Expression Time,[Measures].[Expression Time]
