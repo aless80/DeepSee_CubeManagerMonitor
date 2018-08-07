@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-06 12:33:57">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-07 15:18:50">
 <Class name="CubeManager.CubeManagerCube">
 <Description>
 </Description>
 <ProcedureBlock>1</ProcedureBlock>
 <Super>%DeepSee.CubeDefinition</Super>
-<TimeChanged>64866,45049.676786</TimeChanged>
+<TimeChanged>64867,55095.235255</TimeChanged>
 <TimeCreated>64861,34075.318698</TimeCreated>
 <DependsOn>%DeepSee.CubeManager.CubeEvent</DependsOn>
 
@@ -123,7 +123,7 @@ Cube definition from Architect.</Description>
   </measure>
   <measure name="Missing References" disabled="false" sourceProperty="MissingRefs" aggregate="SUM" type="number" hidden="false" searchable="false">
   </measure>
-  <measure name="Total Time" displayName="Total Time" disabled="false" sourceExpression="%source.TotalTime" aggregate="AVG" type="number" scale="5" hidden="false" searchable="false" iKnowSource="string">
+  <measure name="Total Time" displayName="Total Time" disabled="false" sourceProperty="TotalTime" aggregate="AVG" type="number" scale="5" hidden="false" searchable="false" iKnowSource="string">
   </measure>
   <measure name="iKnow Time" displayName="iKnow Time" disabled="false" sourceProperty="iKnowTime" aggregate="AVG" type="number" scale="2" hidden="false" searchable="false" iKnowSource="string">
   </measure>
@@ -135,7 +135,7 @@ Cube definition from Architect.</Description>
   </measure>
   <measure name="AgentCount" disabled="false" sourceProperty="AgentCount" aggregate="SUM" type="number" hidden="false" searchable="false">
   </measure>
-  <measure name="Last StartTime" disabled="false" sourceExpression="$ZDH(%source.StartTime,3)" aggregate="MAX" type="date" hidden="false" searchable="true" listingFilterOperator="MAX">
+  <measure name="Last StartTime" disabled="false" sourceExpression="$ZDH(%source.StartTime,3)" factName="MxLastStartTime" aggregate="MAX" type="date" hidden="false" searchable="true" listingFilterOperator="MAX">
   </measure>
   <listing name="Cube Manager details" disabled="false" listingType="table" fieldList="%ID,CubeKey,CubeEvent,EventStatus,StartTime,TotalTime,FactsUpdated">
   </listing>

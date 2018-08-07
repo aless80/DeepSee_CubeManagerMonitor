@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-07 15:16:44">
+<Class name="CubeManager.MaxFieldPlugin">
+<Description>
+CubeManager.MaxFieldPlugin
+This DeepSee Plugin returns one fact. The returned fact has a source record whose field indicated in Outputfield is biggest. 
+Examples: the following will return the Age of the fact with the highest TestScore (i.e. the youngest
+%KPI("MaxFieldPlugin","LastFact",1,"Outputfield","%ID","Comparator","TestScore","%CONTEXT")
+</Description>
+<Super>%DeepSee.KPIPlugIn</Super>
+<TimeChanged>64867,54928.110374</TimeChanged>
+<TimeCreated>64867,54928.110374</TimeCreated>
+
+<Parameter name="BASECUBE">
+<Description>
+Cube(s) that this plug-in is based on.</Description>
+<Default>*</Default>
+</Parameter>
+
+<Parameter name="LISTINGSOURCE">
+<Description>
+SourceTable</Description>
+<Default>SourceTable</Default>
+</Parameter>
+
+<Parameter name="PLUGINTYPE">
+<Default>Pivot</Default>
+</Parameter>
+
+<XData name="KPI">
+<Description>
+Parameter LISTINGFIELDS = "ResultID as SensorReading, %ID as ID";</Description>
+<XMLNamespace>http://www.intersystems.com/deepsee/kpi</XMLNamespace>
+<Data><![CDATA[
+<kpi name="MaxFieldPlugin" displayName="LastFact" caption="LastFact" >
+<filter name="%cube" displayName="Subject Area"/>
+<filter name="%Outputfield" displayName="Outputfield" description="Field of source record to be returned as output"/>
+<filter name="%Comparefield" displayName="Comparefield"  description="Field of source record to maximize (%ID by default). The fact corresponding to the source record with maximum Comparefield will be returned. %ID breaks ties"/>
+<property name="LastFact" displayName="LastFact" description="" />
+
+</kpi>
+]]></Data>
+</XData>
+
+<Method name="%OnGetMDX">
+<Description>
+Get the base query for this plug-in.</Description>
+<FormalSpec><![CDATA[&pMDX:%String]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tBaseCube = ""
+	// Use %cube filter to find the base cube
+	If $IsObject(..%filterValues) {
+		If (..%filterValues.%cube'="") {
+			Set tBaseCube = ..%filterValues.%cube
+		}
+	}
+	If (tBaseCube'="") {
+		Set pMDX = "SELECT FROM "_tBaseCube
+	}
+	Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="%OnGetListingFields">
+<Description>
+Returns the field list (RETURN clause) of the listing used to supply data for this plug-in.
+In this case, determine which field in the source table we need.</Description>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	// JMD1124 return error by default
+	Set tListingFields = "'ERROR:No Outputfield' Outputfield"
+	If $IsObject(..%filterValues) {
+		If (..%filterValues.%data("Outputfield")'="") {		
+			Set tOutputfield = ..%filterValues.%data("Outputfield")
+			Set tListingFields = tOutputfield _ " Outputfield"
+		}
+ 		Set tComparefield = "%ID"
+		If $D(..%filterValues.%data("Comparefield"))'=0 {
+			Set tComparefield = ..%filterValues.%data("Comparefield")
+		} 
+		Set tListingFields = tListingFields_"," _ tComparefield _ " Comparefield"
+	
+	}
+	Quit tListingFields _",%ID ID"  //Also pass the ID in case you want to use it in %OnCompute
+]]></Implementation>
+</Method>
+
+<Method name="%OnCompute">
+<Description>
+Compute the value for the last fact using the result set.</Description>
+<FormalSpec>pSQLRS:%SQL.StatementResult,pFactCount:%Integer</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC = $$$OK
+	Try {
+		Set tErrMsg = ""
+		Set highest = ""  //negative number
+		Set n = 0
+		While (pSQLRS.%Next(.tSC)) { 
+			If $$$ISERR(tSC) {
+				Set tErrMsg = $System.Status.GetErrorText(tSC)
+				Quit
+			}
+			// Get the the highest field defined in Comparefield. Breaking ties: the corresponding fact is the one with the highest %ID
+   			if (pSQLRS.Comparefield >= highest) {
+     			Set tValue = pSQLRS.Outputfield
+     			Set highest = pSQLRS.Comparefield
+ /*
+ S ^Ale($I(^Ale),"pSQLRS.Comparefield")=pSQLRS.Comparefield
+ S ^Ale($I(^Ale),"pSQLRS.ID")=pSQLRS.ID
+ 
+            	Set ..%data("IDLIST","LastFact",pSQLRS.ID)=""
+ */           	
+  			}
+			If ($ZSTRIP($P(tValue,":"),"<>W")="ERROR") {
+				Set tErrMsg = $P(tValue,":",2)
+				Quit
+			}
+			// update pct complete
+			Set n = n + 1
+			If (n#100 = 0) {
+				Do ..%SetPercentComplete(100*(n/pFactCount))
+			}
+		}
+		// place answer in KPI output
+		Set ..%seriesCount = 1
+		Set ..%seriesNames(1) = "LastFact"
+		If (tErrMsg'="") {
+			Set ..%data(1,"LastFact") = tErrMsg
+		} Else {
+			Set ..%data(1,"LastFact") = tValue
+		}
+	}
+	Catch(ex) {
+		Set tSC = ex.AsStatus()
+	}
+	Quit tSC
+]]></Implementation>
+</Method>
+</Class>
+</Export>
