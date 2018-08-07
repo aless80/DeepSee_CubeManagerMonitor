@@ -24,7 +24,9 @@ W ##class(%DeepSee.Utils).%BuildCube("CubeManagerCube",1,1)
 W ##class(%DeepSee.TermList).%ImportCSV(path_"CubeManager_colspec.txt") //termlist
 W $system.OBJ.Load(path_"CubeManagerCube.xml","cf")
 W $system.OBJ.Load(path_"CubeManagerPortlet.xml","cf")
+W $system.OBJ.Load(path_"MaxFieldPlugin.xml","cf")
 Do ##class(%DeepSee.UserLibrary.Utils).%Import(path_"Cube_Manager-Times_by_StartTime-pivot.xml",1)
+Do ##class(%DeepSee.UserLibrary.Utils).%Import(path_"Cube_Manager-Latest_Events_By_CubeKey-pivot.xml",1)
 Do ##class(%DeepSee.UserLibrary.Utils).%Import(path_"Cube_Manager-Cube_Manager_Monitor-dashboard.xml",1)
 ```
 
@@ -34,11 +36,13 @@ Do ##class(%DeepSee.UserLibrary.Utils).%Import(path_"Cube_Manager-Cube_Manager_M
 #### Manual import
 1) In the namespace where Cube Manager runs import the CubeManagerCube cube in CubeManagerCube.xml. This file contains the cube class for CubeManagerCube;
 2) Build the CubeManagerCube cube from Architect:
-3) Import the portlet class CubeManagerPortlet.xml in studio;
-4) Import the dashboard Cube_Manager-Cube_Manager_Monitor-dashboard.xml;
-5) Import the pivot Cube_Manager-Times_by_StartTime-pivot.xml;
-6) Import the termlist CubeManager_colspec.txt to be able to use the Choose Column Spec control on the dashboard;
-7) Open the Cube_Manager-Cube_Manager_Monitor dashboard.
+3) Import the portlet class CubeManagerPortlet.xml;
+4) Import the plugin class MaxFieldPlugin.xml;
+5) Import the dashboard Cube_Manager-Cube_Manager_Monitor-dashboard.xml;
+6) Import the pivot Cube_Manager-Times_by_StartTime-pivot.xml;
+7) Import the pivot Cube_Manager-Latest_Events_By_CubeKey-pivot.xml;
+8) Import the termlist CubeManager_colspec.txt to be able to use the Choose Column Spec control on the dashboard;
+9) Open the Cube_Manager-Cube_Manager_Monitor dashboard.
 
 
 ### Limitations
