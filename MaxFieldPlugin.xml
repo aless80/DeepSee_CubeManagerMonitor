@@ -28,8 +28,6 @@ SourceTable</Description>
 </Parameter>
 
 <XData name="KPI">
-<Description>
-Parameter LISTINGFIELDS = "ResultID as SensorReading, %ID as ID";</Description>
 <XMLNamespace>http://www.intersystems.com/deepsee/kpi</XMLNamespace>
 <Data><![CDATA[
 <kpi name="MaxFieldPlugin" displayName="LastFact" caption="LastFact" >
