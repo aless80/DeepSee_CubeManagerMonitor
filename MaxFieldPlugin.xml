@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-07 15:16:44">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-10 14:32:55">
 <Class name="CubeManager.MaxFieldPlugin">
 <Description>
 CubeManager.MaxFieldPlugin
@@ -8,7 +8,7 @@ Examples: the following will return the Age of the fact with the highest TestSco
 %KPI("MaxFieldPlugin","LastFact",1,"Outputfield","%ID","Comparator","TestScore","%CONTEXT")
 </Description>
 <Super>%DeepSee.KPIPlugIn</Super>
-<TimeChanged>64867,54928.110374</TimeChanged>
+<TimeChanged>64870,52332.276546</TimeChanged>
 <TimeCreated>64867,54928.110374</TimeCreated>
 
 <Parameter name="BASECUBE">
@@ -92,6 +92,7 @@ Compute the value for the last fact using the result set.</Description>
 <Implementation><![CDATA[
 	Set tSC = $$$OK
 	Try {
+		Set tValue = ""
 		Set tErrMsg = ""
 		Set highest = ""  //negative number
 		Set n = 0

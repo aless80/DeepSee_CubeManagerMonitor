@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-02 16:17:41">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-10 16:13:18">
 <Class name="CubeManager.CubeManagerPortlet">
 <Super>%DeepSee.Component.Portlet.abstractPortlet</Super>
-<TimeChanged>64862,58518.798486</TimeChanged>
+<TimeChanged>64870,58389.656672</TimeChanged>
 <TimeCreated>64862,58518.798486</TimeCreated>
 
 <Parameter name="INCLUDEFILES">
@@ -37,7 +37,7 @@ Area Transparency Setting</Description>
 <Description>
 Line color
 Property linecolor1 As %String;
-Comma separated string of line colors for graphs</Description>
+Comma separated and case insensitive string of line colors for graphs</Description>
 <Type>%String</Type>
 </Property>
 
@@ -72,6 +72,12 @@ Enable Export of chart</Description>
 <Type>%Boolean</Type>
 </Property>
 
+<Property name="reqFilters">
+<Description>
+Comma separated string of required filters, e.g. "[AgeD].[H1].[Age],Gender"</Description>
+<Type>%String</Type>
+</Property>
+
 <Method name="%OnGetPortletName">
 <Description>
 Return the localized caption of this portlet.
@@ -98,6 +104,7 @@ This should be overridden in subclasses.</Description>
  Set pInfo($I(pInfo)) = $LB("BULLETSIZE","6","%Integer","Bullet size","Size of bullet in the chart")
  Set pInfo($I(pInfo)) = $LB("SHOWLEGEND","true","ENUM^true:1,false:0","Show Legend","Show legend")
  Set pInfo($I(pInfo)) = $LB("AMEXPORT","false","ENUM^true:1,false:0","Enable Export","Enable Export")
+ Set pInfo($I(pInfo)) = $LB("REQUIREDFILTERS","","%String","Required filters","Comma separated string of MDX filters")
  Quit pInfo
 ]]></Implementation>
 </Method>
@@ -129,6 +136,7 @@ When filters get applied to the portlet, re-query the data from the pivot with t
   Set ..bulletsize = ..settings("BULLETSIZE")
   Set ..showLegend = ..settings("SHOWLEGEND")
   Set ..amchartsexport = ..settings("AMEXPORT")
+  Set ..reqFilters = ..settings("REQUIREDFILTERS")
   //Show a message while loading
   &html< <div id="chartdiv">Content is loading...</div>	>
 ]]></Implementation>
@@ -170,6 +178,16 @@ When filters get applied to the portlet, re-query the data from the pivot with t
 	//Get the query
 	var query = controller.GetCurrentQueryText();
 	console.log('The MDX query is:\n'+query)
+	//Check if the required filters given in the widget settings are set
+	var filters = controller.getFilterForCells();
+	var reqFilterArr = this.reqFilters.toUpperCase().split(','); 
+	for (i = 0; i < reqFilterArr.length; i++) {
+		if (filters.indexOf(reqFilterArr[i]) == -1) {
+			chartdiv.innerHTML = '<br><b>Please select a filter for: ' + this.reqFilters.replace(',',' and ') + ' </b>';
+			window.controller = controller;
+			return;
+		}
+	}
     //Get the data from the controller..
     var chartData = []
     var columnLabels = controller.getColumnDescriptors().map(function(a) {return a.caption;});
