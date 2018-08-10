@@ -3,11 +3,14 @@ DeepSee dashboard base on portlets and [Amcharts](https://www.amcharts.com/) to 
 
 
 ### Description
-This project shows a dashboard that can be used to monitor the DeepSee [Cube Manager](https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=D2IMP_ch_current#D2IMP_current_cubemgr). The dashboards is based on the cube CubeManagerCube and contains an updated version of the AmCharts-based portlet available on my repository [DeepSee_TimeCharts](https://github.com/aless80/DeepSee_TimeCharts).  
-See the documentation on portlets: [Creating Portlets for Use in Dashboards](http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=D2IMP_ch_portlets).
+This project shows a dashboard that can be used to monitor the DeepSee [Cube Manager](https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=D2IMP_ch_current#D2IMP_current_cubemgr). The dashboards is based on the cube CubeManagerCube and contains two widgets. One widget shows the latest synch or build events with the corresponding number of errors. The other widget appears when two particular filters are selected and shows a time chart. The time chart can be used to monitor performance, errors, and more through time. 
 
 ### Content
-CubeManagerCube cube, a CubeManagerPortlet portlet showing a chart based on Amcharts. The x-axis of the chart is based on date-time (e.g. "2018-08-02 14:18:00").
+The CubeManagerCube cube, a dashboard (Cube Manager Monitor) with a portlet-based widget (Times by StartTime) and a scorecard widget (Latest Events By CubeKey), the CubeManagerPortlet portlet, the MaxFieldPlugin.xml KPI plugin for the scorecard widget, the CubeManager_colspec.txt termlist for the portlet-based widget. 
+
+The portlet shows a chart based on Amcharts, which is an updated version of the AmCharts-based portlet available on my repository [DeepSee_TimeCharts](https://github.com/aless80/DeepSee_TimeCharts). The x-axis of the chart is based on date-time (e.g. "2018-08-02 14:18:00"). The portlet allows users to set several settings from the dashboard, including a list of required filters (an option not yet available in DeepSee!). See the documentation on portlets: [Creating Portlets for Use in Dashboards](http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=D2IMP_ch_portlets).
+
+The scorecard widget is based on a pivot using a KPI plugin. The KPI plugin allows users to return the field of a source records. The source record selected is %CONTEXT dependent and is the one where another field is biggest. This is used to get the date/errors of the latest synch/build event (i.e. the date/errors of the fact with the biggest timestamp). 
 
 ![Alt Text](https://github.com/aless80/DeepSee_CubeManagerMonitor/blob/master/img/dashboard.png)
 
