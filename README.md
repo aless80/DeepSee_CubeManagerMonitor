@@ -49,6 +49,7 @@ Do ##class(%DeepSee.UserLibrary.Utils).%Import(path_"Cube_Manager-Cube_Manager_M
 
 
 ### Limitations
+This routine is **not officially supported by InterSystems Co.** I suggest using this routine only in test environments.
 The default filter control in the portlet widget is not used when you first load the dashboard. This has been ProdLogged.  
 The current implementation of onApplyFilters calls renderContents. This makes the filters work but renderContents runs two times at startup. This has been ProdLogged.  
 The data should be sorted by date and be in the format "yyyy-mm-dd hh:mm:ss" e.g. "2018-07-27 14:25:41".  
