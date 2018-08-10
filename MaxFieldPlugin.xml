@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-10 14:32:55">
+<Export generator="Cache" version="25" zv="Cache for UNIX (SUSE Linux Enterprise Server for x86-64) 2017.2.1 (Build 801)" ts="2018-08-10 16:38:52">
 <Class name="CubeManager.MaxFieldPlugin">
 <Description>
 CubeManager.MaxFieldPlugin
-This DeepSee Plugin returns one fact. The returned fact has a source record whose field indicated in Outputfield is biggest. 
+This DeepSee Plugin returns one fact. The returned fact has a source record whose field indicated in Comparefield is biggest. 
 Examples: the following will return the Age of the fact with the highest TestScore (i.e. the youngest
 %KPI("MaxFieldPlugin","LastFact",1,"Outputfield","%ID","Comparator","TestScore","%CONTEXT")
 </Description>
 <Super>%DeepSee.KPIPlugIn</Super>
-<TimeChanged>64870,52332.276546</TimeChanged>
+<TimeChanged>64870,59921.831793</TimeChanged>
 <TimeCreated>64867,54928.110374</TimeCreated>
 
 <Parameter name="BASECUBE">
