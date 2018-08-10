@@ -19,7 +19,7 @@
     <control name="" action="applyFilter" target="TimeChart" targetProperty="[Cube].[H1].[CubeKey]" location="widget" type="auto" controlClass="" label="CubeKey" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
       <valueRequired>false</valueRequired>
     </control>
-    <control name="" action="applyFilter" target="*" targetProperty="[CubeEvent].[H1].[CubeEvent]" location="widget" type="auto" controlClass="" label="CubeEvent" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
+    <control name="" action="applyFilter" target="TimeChart" targetProperty="[CubeEvent].[H1].[CubeEvent]" location="widget" type="auto" controlClass="" label="CubeEvent" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
       <valueRequired>false</valueRequired>
     </control>
     <control name="" action="applyFilter" target="TimeChart" targetProperty="[CubeGroup].[H1].[CubeGroup]" location="widget" type="auto" controlClass="" label="CubeGroup" title="" value="" text="" readOnly="false" valueList="" displayList="" activeWhen="">
